@@ -47,3 +47,6 @@ TagManager:
   - name: Player
     uniqueID: 3831568239
     locked: 0
+  - name: Soldier
+    uniqueID: 666118233
+    locked: 0
