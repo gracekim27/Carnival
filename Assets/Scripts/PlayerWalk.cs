@@ -6,12 +6,12 @@ public class PlayerWalk : MonoBehaviour
 {
     public float speed = 5.0f;
     private Animator animator;
-    private Rigidbody rb;
+    private Rigidbody2D rb;
 
     void Start()
     {
         animator = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
