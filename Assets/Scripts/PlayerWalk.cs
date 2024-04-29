@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerWalk : MonoBehaviour
 {
-    public float speed = 5.0f;
+    [SerializeField] private float speed;
     private Animator animator;
     private Rigidbody2D rb;
 
@@ -19,19 +19,24 @@ public class PlayerWalk : MonoBehaviour
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
-        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+        Vector3 movement = new Vector3(moveHorizontal, moveVertical, 0.0f);
         rb.MovePosition(transform.position + movement * speed * Time.deltaTime);
 
-        // Update the animator parameters
+        // Update the animator parameters based on movement
         if (movement != Vector3.zero)
         {
-            animator.SetFloat("Speed", 1.0f);  // Change 1.0 to vary animation speed
+            animator.SetBool("IsWalking", true);
+            animator.SetFloat("Speed", movement.magnitude);
         }
         else
         {
-            animator.SetFloat("Speed", 0.0f);
+            animator.SetBool("IsWalking", false);
+        }
+
+        // Check for mouse click to trigger fight animation
+        if (Input.GetMouseButtonDown(0)) // 0 is the left mouse button
+        {
+            animator.SetTrigger("Fight");
         }
     }
 }
-
-
