@@ -11,8 +11,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Enemy
+  - Player
   - 
   - 
   - 
@@ -49,4 +49,7 @@ TagManager:
     locked: 0
   - name: Soldier
     uniqueID: 666118233
+    locked: 0
+  - name: PlayerSword
+    uniqueID: 1752562399
     locked: 0
