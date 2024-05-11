@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4112215506142677485}
   - component: {fileID: 3614779087289036210}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SoldierShield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,9 +96,10 @@ GameObject:
   - component: {fileID: 7467476345067052653}
   - component: {fileID: 3471170402487412097}
   - component: {fileID: 7924516665017635226}
-  m_Layer: 0
+  - component: {fileID: 470250336125916604}
+  m_Layer: 6
   m_Name: Soldier
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -155,9 +156,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  attackRange: 0.5
-  baseRetreatDistance: 1
+  swordCollider: {fileID: 8757403221767258070}
+  maxHealth: 3
+  knockbackStrength: 4
+  knockbackDuration: 0.2
+  flashDuration: 0.2
+  retreatChance: 0.0002
+  baseRetreatDistance: 1.5
   retreatVariance: 0.3
+  attackRange: 0.6
+  attackCooldown: 0.8
+  coin: {fileID: 8846763997559256093, guid: 6e7d996955f534b52b92b5254b5f4505, type: 3}
+  enemyValue: 5
+  enemyValueVariance: 2
+  spawner: {fileID: 0}
+  hurt:
+  - {fileID: 8300000, guid: 4c46724f630ef4cdf840b0f3b3db43af, type: 3}
+  - {fileID: 8300000, guid: 8756f9386da404adeb5f9c281439d1d6, type: 3}
+  - {fileID: 8300000, guid: 02cbe07eaa22348b29ab46125002e0de, type: 3}
+  - {fileID: 8300000, guid: 26d5ce8d5a57d4a8e9373c4cd21f5efc, type: 3}
+  deathClang: {fileID: 8300000, guid: 30baf649461e84ecaae6a774417c1447, type: 3}
 --- !u!50 &7924516665017635226
 Rigidbody2D:
   serializedVersion: 4
@@ -185,6 +203,51 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!61 &470250336125916604
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223586457241556118}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.09}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.59, y: 0.91}
+  m_EdgeRadius: 0
 --- !u!1 &3145574310752283754
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,7 +259,7 @@ GameObject:
   - component: {fileID: 8898749637032269759}
   - component: {fileID: 2692857981409150060}
   - component: {fileID: 1921498661454112799}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SoldierHead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -301,7 +364,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2241659664302721166}
   - component: {fileID: 4125010671498329654}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SoldierLLeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -385,9 +448,11 @@ GameObject:
   m_Component:
   - component: {fileID: 2289271038653305750}
   - component: {fileID: 158439986820709704}
-  m_Layer: 0
+  - component: {fileID: 8757403221767258070}
+  - component: {fileID: 6097521938883468638}
+  m_Layer: 9
   m_Name: SoldierSword
-  m_TagString: Untagged
+  m_TagString: EnemySword
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -459,6 +524,68 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!70 &8757403221767258070
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4236376868258592581}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.26600486, y: 0.000000074505806}
+  m_Size: {x: 0.43, y: 0.15}
+  m_Direction: 1
+--- !u!50 &6097521938883468638
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4236376868258592581}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &4743777890724483936
 GameObject:
   m_ObjectHideFlags: 0
@@ -469,7 +596,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5495870813680437105}
   - component: {fileID: 1667488143861251382}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SoldierRLeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -553,7 +680,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7450875242746456730}
   - component: {fileID: 1964184113158621127}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SoldierBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
